@@ -2,7 +2,7 @@ name:                rsched
 version:             0.1.0.0
 synopsis:            Scheduler using Redis as backend
 description:         Scheduler using Redis as backend
-homepage:            http://github.com/name/project
+homepage:            http://github.com/tkawachi/rsched
 license:             BSD3
 license-file:        LICENSE
 author:              Takashi Kawachi
