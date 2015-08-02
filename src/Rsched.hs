@@ -10,14 +10,17 @@ import Data.Aeson (Value, encode, object, (.=))
 import Data.Aeson.Parser (json)
 import Data.Conduit (($$))
 import Data.Conduit.Attoparsec (sinkParser)
-import Network.HTTP.Types (status200, status400)
-import Network.Wai (Application, Response, responseLBS)
+import Data.Text ( Text )
+import Network.HTTP.Types (Method, status200, status400)
+import Network.Wai (Application, Request, Response, responseLBS)
 import Network.Wai.Conduit (sourceRequestBody)
+
+import qualified Rsched.Job as J
 
 app :: Application
 app req sendResponse = handle (sendResponse . invalidJson) $ do
   value <- sourceRequestBody req $$ sinkParser json
-  newValue <- liftIO $ modValue value
+  newValue <- liftIO $ modValue req value
   sendResponse $ responseLBS
     status200
     [("Content-Type", "application/json")]
@@ -31,5 +34,6 @@ invalidJson ex = responseLBS
     [ ("message" .= show ex)
     ]
 
-modValue :: Value -> IO Value
-modValue = return
+modValue :: Request -> Value -> IO Value
+modValue req value = do
+  return value
