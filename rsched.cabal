@@ -18,8 +18,14 @@ library
   exposed-modules:     Rsched
   build-depends:       base >= 4.7 && < 5
                      , aeson
+                     , conduit
+                     , conduit-extra
                      , hedis
+                     , http-types
+                     , lifted-base
+                     , transformers
                      , wai
+                     , wai-conduit
   default-language:    Haskell2010
 
 executable rsched
@@ -28,6 +34,7 @@ executable rsched
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , rsched
+                     , warp
   default-language:    Haskell2010
 
 test-suite rsched-test
